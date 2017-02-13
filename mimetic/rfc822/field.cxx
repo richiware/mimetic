@@ -39,7 +39,7 @@ Field::Field(const string& line)
     {
         m_name.assign(line.begin(), line.begin() + colon);
         unsigned int i;
-        for(i = 1 + colon; i < line.length() - 1 && line[i] == ' '; ++i)
+        for(i = 1 + static_cast<unsigned int>(colon); i < line.length() - 1 && line[i] == ' '; ++i)
             ; // skip spaces before field-body
         string val(line.begin() +i, line.end());
         value(val);
@@ -158,7 +158,7 @@ ostream& Field::write(ostream& os, unsigned int fold) const
         string ostr = name() + ": " + value();
 
         // skip the "fieldname: " part just on the first inner iteration 
-        skip = name().length() + 2; 
+        skip = static_cast<int>(name().length()) + 2;
 
         while(ostr.length() > fold)
         {
@@ -174,7 +174,7 @@ ostream& Field::write(ostream& os, unsigned int fold) const
                 if(!in_quote && isblank(ostr[i]))
                     sp = i; // last blank found
 
-                if(i >= fold && sp)
+                if(i >= static_cast<int>(fold && sp))
                 {
                     os.write(ostr.c_str(), sp);
                     ostr.erase(0, 1+sp);

@@ -60,12 +60,12 @@ void Mailbox::set(const string& input)
     // string::erase, etc) so we must reset all pointers after
     // the string::erase or/and we cannot cache begin() end()
 
-    int t = input.length() -1;
+    int t = static_cast<int>(input.length()) -1;
     if(input[t] == '>')
     {
         bool in_dquote = false, in_comment = false;
         int endoff = t - 1;
-        for(int x = input.length() -1 ; x >= 0; --x)
+        for(int x = static_cast<int>(input.length()) -1 ; x >= 0; --x)
         {
             string::value_type ch = input[x];
             if(in_comment && ch == '(') {
@@ -85,10 +85,10 @@ void Mailbox::set(const string& input)
                 else
                     m_mailbox.assign(input, x+1, endoff - x);
                 m_label.assign(input, 0 , x);
-                for(int t = m_label.length()-1; t > 0; --t)
+                for(int tt = static_cast<int>(m_label.length())-1; tt > 0; --tt)
                 {
-                    if(m_label[t] == ' ')
-                        m_label.erase(t, 1);
+                    if(m_label[tt] == ' ')
+                        m_label.erase(tt, 1);
                     else
                         break;
                 }
@@ -99,7 +99,7 @@ void Mailbox::set(const string& input)
         }
     } else {
         bool in_dquote = false, in_comment = false;
-        for(int x = input.length() -1 ; x >= 0; --x)
+        for(int x = static_cast<int>(input.length()) -1 ; x >= 0; --x)
         {
             string::value_type ch = input[x];
             string::size_type len = input.length();

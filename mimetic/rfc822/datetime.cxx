@@ -15,17 +15,15 @@
 namespace mimetic
 {
 
-
 using namespace std;
-using namespace mimetic;
 
 DateTime::Zone::Zone(int iZone)
-: m_iZone(iZone), m_iZoneIdx(0)
+: m_iZone(static_cast<short>(iZone)), m_iZoneIdx(0)
 {
     for(int i = 0; ms_offset[i] != 0; ++i)
         if(iZone == ms_offset[i])
         {
-            m_iZoneIdx = i;
+            m_iZoneIdx = static_cast<short>(i);
         }
 }
 DateTime::Zone::Zone(const string& txt)
@@ -38,8 +36,8 @@ DateTime::Zone::Zone(const string& txt)
     {
         if(iTxt == ms_label[i])
         {
-            m_iZone = ms_offset[i];
-            m_iZoneIdx = i;
+            m_iZone = static_cast<short>(ms_offset[i]);
+            m_iZoneIdx = static_cast<short>(i);
         }
     }
     if(m_iZone == 0)
@@ -49,7 +47,7 @@ DateTime::Zone::Zone(const string& txt)
         {
             int sign = (tz[0] == '-' ? -1 : 1);
             tz.erase(0,1);
-            m_iZone = utils::str2int(tz) * sign;
+            m_iZone = static_cast<short>(utils::str2int(tz) * sign);
         }
     }
 }
@@ -85,7 +83,7 @@ short DateTime::Zone::ordinal() const
 }
 
 DateTime::Month::Month(int iMonth)
-: m_iMonth(iMonth)
+: m_iMonth(static_cast<short>(iMonth))
 {
     if(m_iMonth < 1 || m_iMonth > 12)
         m_iMonth = 0;
@@ -99,14 +97,14 @@ DateTime::Month::Month(const string& txt)
         for(int i = 1; i < 13; ++i)
             if(iTxt == ms_label[i][mnShort])
             {
-                m_iMonth = i;
+                m_iMonth = static_cast<short>(i);
                 return;
             }
     } else {
         for(int i = 1; i < 13; ++i)
             if(iTxt == ms_label[i][mnLong])
             {
-                m_iMonth = i;
+                m_iMonth = static_cast<short>(i);
                 return;
             }
     }
@@ -132,7 +130,7 @@ short DateTime::Month::ordinal() const
 
 
 DateTime::DayOfWeek::DayOfWeek(int iDayOfWeek)
-: m_iDayOfWeek(iDayOfWeek)
+: m_iDayOfWeek(static_cast<short>(iDayOfWeek))
 {
     if(m_iDayOfWeek < 1 || m_iDayOfWeek > 7)
         m_iDayOfWeek = 0;
@@ -147,14 +145,14 @@ DateTime::DayOfWeek::DayOfWeek(const string& txt)
         for(int i = 1; i < 8; ++i)
         if(iTxt == ms_label[i][mnShort])
         {
-                m_iDayOfWeek = i;
+                m_iDayOfWeek = static_cast<short>(i);
                 return;
             }
     } else {
         for(int i = 1; i < 8; ++i)
             if(iTxt == ms_label[i][mnLong])
             {
-                m_iDayOfWeek = i;
+                m_iDayOfWeek = static_cast<short>(i);
                 return;
             }
     }
@@ -340,7 +338,7 @@ DateTime::DayOfWeek DateTime::dayOfWeek() const
 
 short DateTime::day() const
 {
-    return m_iDay;
+    return static_cast<short>(m_iDay);
 }
 
 DateTime::Month DateTime::month() const
@@ -350,22 +348,22 @@ DateTime::Month DateTime::month() const
 
 short DateTime::year() const
 {
-    return m_iYear;
+    return static_cast<short>(m_iYear);
 }
 
 short DateTime::hour() const
 {
-    return m_iHour;
+    return static_cast<short>(m_iHour);
 }
 
 short DateTime::minute() const
 {
-    return m_iMinute;
+    return static_cast<short>(m_iMinute);
 }
 
 short DateTime::second() const
 {
-    return m_iSecond;
+    return static_cast<short>(m_iSecond);
 }
 
 DateTime::Zone DateTime::zone() const
@@ -388,7 +386,7 @@ FieldValue* DateTime::clone() const
 
 ostream& operator<<(ostream& os, const DateTime& dt)
 {
-    int width = os.width(), fill = os.fill();
+    int width = static_cast<int>(os.width()), fill = os.fill();
 
     os << dt.dayOfWeek().name() << ", "
        << setw(2) << setfill('0') << dt.day() << " "
@@ -400,7 +398,7 @@ ostream& operator<<(ostream& os, const DateTime& dt)
        << dt.zone().name();
 
     os.width(width);
-    os.fill(fill);
+    os.fill((char)fill);
     return os;
 }
 

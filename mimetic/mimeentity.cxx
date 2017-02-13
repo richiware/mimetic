@@ -2,7 +2,7 @@
     copyright            : (C) 2002-2008 by Stefano Barbato
     email                : stefano@codesink.org
 
-    $Id: mimeentity.cxx,v 1.5 2008-10-07 11:06:25 tat Exp $
+    $Id: mimeentity.cxx,v 1.2 2013/03/13 10:00:11 rtirabassi-3di Exp $
  ***************************************************************************/
 #include <iostream>
 #include <fstream>
@@ -22,6 +22,15 @@ namespace mimetic
 using namespace std;
 
 void MimeEntity::load(istream& is, int mask)
+{
+    typedef istreambuf_iterator<char> it_type;
+    typedef it_type::iterator_category it_cat;
+    IteratorParser<it_type, it_cat> prs(*this);
+    prs.iMask(mask);
+    prs.run( it_type(is), it_type());
+}
+
+void MimeEntity::loadFcgi(istream& is, int mask)
 {
     typedef istreambuf_iterator<char> it_type;
     typedef it_type::iterator_category it_cat;

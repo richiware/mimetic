@@ -53,6 +53,17 @@ struct IteratorParser<Iterator, std::input_iterator_tag>
         m_eit = eit;
         doLoad();
     }
+
+    /**
+     * start parsing
+     */
+    void runFcgiBody(Iterator bit, Iterator eit)
+    {
+        m_bit = bit;
+        m_eit = eit;
+        //we skip first headrs block cause we have just body in fcgi
+        loadBody();
+    }
 protected:
     typedef std::list<std::string> BoundaryList;
     enum { 

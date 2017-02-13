@@ -2,7 +2,7 @@
     copyright            : (C) 2002-2008 by Stefano Barbato
     email                : stefano@codesink.org
 
-    $Id: field.cxx,v 1.7 2009-02-27 15:56:34 tat Exp $
+    $Id: field.cxx,v 1.2 2013/03/13 10:16:43 rtirabassi-3di Exp $
  ***************************************************************************/
 #include <mimetic/rfc822/field.h>
 #include <mimetic/strutils.h>

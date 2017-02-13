@@ -2,7 +2,7 @@
     copyright            : (C) 2002-2008 by Stefano Barbato
     email                : stefano@codesink.org
 
-    $Id: mimeentity.h,v 1.29 2008-10-07 11:06:25 tat Exp $
+    $Id: mimeentity.h,v 1.2 2013/03/13 10:00:11 rtirabassi-3di Exp $
  ***************************************************************************/
 #ifndef _MIMETIC_MIMEENTITY_H_
 #define _MIMETIC_MIMEENTITY_H_
@@ -78,7 +78,10 @@ public:
      */
     template<typename Iterator>
     void load(Iterator, Iterator, int mask = imNone);
+    template<typename Iterator>
+    void loadFcgi(Iterator, Iterator, int mask = imNone);
     void load(std::istream&, int mask = imNone);
+    void loadFcgi(std::istream&, int mask = imNone);
 
     /**
      * helper functions: return header().hasField(str)
@@ -124,6 +127,15 @@ void MimeEntity::load(Iterator bit, Iterator eit, int mask)
         typename std::iterator_traits<Iterator>::iterator_category> prs(*this);
     prs.iMask(mask);
     prs.run(bit, eit);
+}
+
+template<typename Iterator>
+void MimeEntity::loadFcgi(Iterator bit, Iterator eit, int mask)
+{
+    IteratorParser<Iterator, 
+        typename std::iterator_traits<Iterator>::iterator_category> prs(*this);
+    prs.iMask(mask);
+    prs.runFcgiBody(bit, eit);
 }
 
 template<typename OutputIt>

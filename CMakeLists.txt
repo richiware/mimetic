@@ -399,6 +399,7 @@ endif()
 macro(set_lib_names target)
     SET_TARGET_PROPERTIES( ${target} PROPERTIES
         OUTPUT_NAME "${target}"
+		DEBUG_OUTPUT_NAME "${target}d"
     )
     
     if (NOT CMAKE_SYSTEM_NAME STREQUAL "Windows")

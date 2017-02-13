@@ -5,7 +5,7 @@ Email library (MIME) written in C++ designed to be easy to use and integrate but
 # AUTOR
 
 For updates and documentation:
-    http://mime.codesink.org/
+    http://www.codesink.org/mimetic_mime_library.html
 
 For API docs (doxygen is required):
     cd doc

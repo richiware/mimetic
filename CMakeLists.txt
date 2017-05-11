@@ -462,6 +462,13 @@ if(NOT SKIP_INSTALL_LIBRARIES AND NOT SKIP_INSTALL_ALL )
         ARCHIVE DESTINATION "${CMAKE_INSTALL_PREFIX}/lib"
         LIBRARY DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" )
 endif()
+
 if(NOT SKIP_INSTALL_HEADERS AND NOT SKIP_INSTALL_ALL )
-    install(FILES ${libmimetic_hdrs} DESTINATION "${CMAKE_INSTALL_PREFIX}/include/mimetic")
+	foreach ( file ${libmimetic_hdrs} )
+		get_filename_component( dir ${file} DIRECTORY )
+		string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/mimetic" "" dir_new ${dir})
+		install( FILES ${file} DESTINATION "${CMAKE_INSTALL_PREFIX}/include/mimetic/${dir_new}" )
+	endforeach()
+
+    ##install(FILES ${libmimetic_hdrs} DESTINATION "${CMAKE_INSTALL_PREFIX}/include/mimetic")
 endif()

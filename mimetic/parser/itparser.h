@@ -57,7 +57,7 @@ struct IteratorParser<Iterator, std::input_iterator_tag>
     /**
      * start parsing
      */
-    void runFcgiBody(Iterator bit, Iterator eit)
+    void runOnlyBody(Iterator bit, Iterator eit)
     {
         m_bit = bit;
         m_eit = eit;

@@ -79,9 +79,9 @@ public:
     template<typename Iterator>
     void load(Iterator, Iterator, int mask = imNone);
     template<typename Iterator>
-    void loadFcgi(Iterator, Iterator, int mask = imNone);
+    void loadOnlyBody(Iterator, Iterator, int mask = imNone);
     void load(std::istream&, int mask = imNone);
-    void loadFcgi(std::istream&, int mask = imNone);
+    void loadOnlyBody(std::istream&, int mask = imNone);
 
     /**
      * helper functions: return header().hasField(str)
@@ -130,12 +130,12 @@ void MimeEntity::load(Iterator bit, Iterator eit, int mask)
 }
 
 template<typename Iterator>
-void MimeEntity::loadFcgi(Iterator bit, Iterator eit, int mask)
+void MimeEntity::loadOnlyBody(Iterator bit, Iterator eit, int mask)
 {
     IteratorParser<Iterator, 
         typename std::iterator_traits<Iterator>::iterator_category> prs(*this);
     prs.iMask(mask);
-    prs.runFcgiBody(bit, eit);
+    prs.runOnlyBody(bit, eit);
 }
 
 template<typename OutputIt>

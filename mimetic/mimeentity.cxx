@@ -30,13 +30,13 @@ void MimeEntity::load(istream& is, int mask)
     prs.run( it_type(is), it_type());
 }
 
-void MimeEntity::loadFcgi(istream& is, int mask)
+void MimeEntity::loadOnlyBody(istream& is, int mask)
 {
     typedef istreambuf_iterator<char> it_type;
     typedef it_type::iterator_category it_cat;
     IteratorParser<it_type, it_cat> prs(*this);
     prs.iMask(mask);
-    prs.run( it_type(is), it_type());
+    prs.runOnlyBody( it_type(is), it_type());
 }
 
 bool MimeEntity::hasField(const string& name) const

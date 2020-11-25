@@ -1,0 +1,8 @@
+set(libmimetic_VERSION @VERSION@)
+
+@PACKAGE_INIT@
+
+set_and_check(libmimetic_INCLUDE_DIR "@PACKAGE_INCLUDE_INSTALL_DIR@")
+set_and_check(libmimetic_LIB_DIR "@PACKAGE_LIB_INSTALL_DIR@")
+
+include(${CMAKE_CURRENT_LIST_DIR}/libmimetic-targets.cmake)

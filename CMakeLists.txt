@@ -309,10 +309,39 @@ endif()
 set_lib_names(libmimetic)
 
 if(NOT SKIP_INSTALL_LIBRARIES AND NOT SKIP_INSTALL_ALL )
+    include(CMakePackageConfigHelpers)
+
     install(TARGETS libmimetic
+	EXPORT libmimetic-targets
         RUNTIME DESTINATION "${CMAKE_INSTALL_PREFIX}/bin"
         ARCHIVE DESTINATION "${CMAKE_INSTALL_PREFIX}/lib"
         LIBRARY DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" )
+
+    export(TARGETS libmimetic
+        FILE ${CMAKE_BINARY_DIR}/lib/cmake/libmimetic/libmimetic-targets.cmake)
+
+    install(EXPORT libmimetic-targets
+            DESTINATION lib/cmake/libmimetic
+            )
+
+    set(BIN_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/bin")
+    set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/bin")
+    set(LIB_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/lib")
+    configure_package_config_file(${PROJECT_SOURCE_DIR}/cmake/config.cmake.in
+        ${PROJECT_BINARY_DIR}/lib/cmake/libmimetic/libmimetic-config.cmake
+	INSTALL_DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/cmake/libmimetic
+	PATH_VARS BIN_INSTALL_DIR INCLUDE_INSTALL_DIR LIB_INSTALL_DIR
+        )
+    write_basic_package_version_file("${CMAKE_BINARY_DIR}/lib/cmake/libmimetic/libmimetic-config-version.cmake"
+        VERSION ${VERSION}
+        COMPATIBILITY AnyNewerVersion
+        )
+
+    install(FILES
+        "${CMAKE_BINARY_DIR}/lib/cmake/libmimetic/libmimetic-config.cmake"
+        "${CMAKE_BINARY_DIR}/lib/cmake/libmimetic/libmimetic-config-version.cmake"
+        DESTINATION lib/cmake/libmimetic
+        )
 endif()
 
 if(NOT SKIP_INSTALL_HEADERS AND NOT SKIP_INSTALL_ALL )

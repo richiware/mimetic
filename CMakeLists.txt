@@ -235,12 +235,6 @@ convert_list_to_string (CMAKE_CXX_FLAGS_RELEASE "${compiler_flags_release}")
 convert_list_to_string (CMAKE_EXE_LINKER_FLAGS_RELEASE "${exe_linker_flags_release}")
 convert_list_to_string (CMAKE_SHARED_LINKER_FLAGS_RELEASE "${shared_lib_linker_flags_release}")
 
-
-include_directories(${CMAKE_CURRENT_SOURCE_DIR})
-
-
-
-
 if(XW_BUILD_LIBMIMETIC)
     set(CMAKE_INSTALL_PREFIX "${XW_3RDP_ROOT}")
     # xw includes
@@ -298,6 +292,10 @@ endif()
 
 add_library(libmimetic  ${libmimetic_hdrs} ${libmimetic_src})
 
+target_include_directories(libmimetic PUBLIC
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+        $<INSTALL_INTERFACE:include>
+	)
 
 apply_preprocessor_definitions (libmimetic)
 
@@ -325,7 +323,7 @@ if(NOT SKIP_INSTALL_LIBRARIES AND NOT SKIP_INSTALL_ALL )
             )
 
     set(BIN_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/bin")
-    set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/bin")
+    set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/include")
     set(LIB_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/lib")
     configure_package_config_file(${PROJECT_SOURCE_DIR}/cmake/config.cmake.in
         ${PROJECT_BINARY_DIR}/lib/cmake/libmimetic/libmimetic-config.cmake

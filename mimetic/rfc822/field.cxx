@@ -174,7 +174,7 @@ ostream& Field::write(ostream& os, unsigned int fold) const
                 if(!in_quote && isblank(ostr[i]))
                     sp = i; // last blank found
 
-                if(i >= static_cast<int>(fold && sp))
+                if(fold && sp && (i > 0))
                 {
                     os.write(ostr.c_str(), sp);
                     ostr.erase(0, 1+sp);
